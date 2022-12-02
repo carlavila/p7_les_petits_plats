@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+:root {
+    --primary: #D04F4F;
+    --btn1: #3282F7;
+    --btn2: #68D9A4;
+    --btn3: #ED6454;
+    --lightBG: #E7E7E7;
+    --warningmsg: #ffc107;
+    --pad100: 6.25rem;
+}
+.bold{
+    font-weight: bold;
+}
+a, a:hover{
+    color: inherit;
+    text-decoration: none;
+}
+body{
+    font-family: 'Lato', sans-serif;
+    position: relative;
+}
+header {
+    padding-top: 1rem;
+}
+main {
+    padding-top: 2rem;
+}
+.main-grid {
+    padding-left: .7rem;
+    padding-right: .7rem;
+}
+.card{
+    padding-left: .75rem;
+    padding-right: .75rem;
+}
+ol, ul{
+    list-style-type: none;
+    padding-left: -2rem !important;
+    -webkit-padding-start: 8px;
+}
+.navbar {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.navbar-brand, .navbar-brand:hover{
+    padding-top: 0;
+    color: var(--primary);
+    padding-bottom: 3rem;
+}
+
+/*SEARCHBAR*/
+.searchbar-container {
+    padding-left: 0;
+    padding-right: 0
+}
+#searchbar{
+    background-color: var(--lightBG);
+    height: 50px;
+}
+.input-group-text {
+	height: 50px;
+}
+
+.bi-search {
+	color: black;
+	font-size: 20px;
+}
+
+#basic-addon2{
+    background-color: var(--lightBG);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0
+}
+.form-control{
+    border-right: none
+}
+.show-error-msg{
+    background-color: var(--warningmsg);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+/*FILTERS BTNS*/
+.edit-and-select_buttons{
+    border: none;
+    caret-color: white;
+    color: white;
+}
+.edit-and-select_buttons::-webkit-input-placeholder{
+    color:white
+}
+.edit-and-select_buttons::-moz-placeholder{
+    color:white
+}
+.edit-and-select_buttons:-ms-input-placeholder{
+    color:white
+}
+.edit-and-select_buttons::-ms-input-placeholder{
+    color:white
+}
+.edit-and-select_buttons::placeholder{
+    color:white
+}
+.edit-and-select_buttons:focus{
+    outline: none;
+}
+.bi-chevron-down{
+    color: white
+}
+#ingredients-btn{
+    background-color: var(--btn1);
+    position: relative;
+    box-shadow: 11px 11px 19px -15px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 11px 11px 19px -15px rgba(0,0,0,0.3);
+    -moz-box-shadow: 11px 11px 19px -15px rgba(0,0,0,0.3);
+}
+#enter-ingredient{
+    background-color: var(--btn1);
+}
+#appareil-btn{
+    background-color: var(--btn2);
+}
+#enter-appareil{
+    background-color: var(--btn2);
+}
+#ustensiles-btn{
+    background-color: var(--btn3);
+}
+#enter-ustensile{
+    background-color: var(--btn3);
+}
+
+.btn-icon {
+    cursor: pointer;
+}
+
+/*FILTERS*/
+.advanced_search_results{
+    display: none;
+}
+#edit-and-select_ingredients-results {
+    max-height: 24.8rem;
+    z-index: 1;
+    background-color: var(--btn1);
+    overflow: auto;
+    top: 22.04rem;
+    padding: 1rem;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    overflow-x: hidden
+}
+#edit-and-select_ingredients-results::-webkit-scrollbar {
+    width: .7rem;
+}
+#edit-and-select_ingredients-results::-webkit-scrollbar-thumb {
+    background: #e7e7e75b;
+    border-radius: 100vw;
+}
+.btn-expand {
+    width: 50vw;
+}
+.lists {
+    max-height: 24.8rem;
+}
+.show-filters{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.filter-element{
+    cursor: pointer;
+    color: white;
+}
+.filter-element:hover {
+    color: rgba(255, 255, 255, 0.658);
+}
+
+/*CARDS*/
+.card-img-top{
+    width: 100%;
+    height: 178px
+}
+.card-body{
+    background-color: var(--lightBG);
+    font-size: 12px;
+    --bs-gutter-x: 0;
+}
+.card-title{
+    font-size: 1.13rem;
+    font-weight: 400;
+    max-height: 22px;
+    -o-text-overflow: ellipsis;
+       text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.ingredients-ul{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    overflow: hidden;
+    max-height: 109px;
+}
+.card-text{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    overflow: hidden;
+    max-height: 109px;
+}
+.tags{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    gap: 1.25rem;
+    color: white;
+    text-align: center;
+    padding-left: 0;
+}
+.ingredient-tag{
+    background-color: var(--btn1);
+    padding: .63rem;
+    padding-left: 1.25rem;
+    padding-right: 1.38rem;
+    border-radius: .31rem;
+}
+.appareil-tag{
+    background-color: var(--btn2);
+    padding: .63rem;
+    padding-left: 1.25rem;
+    padding-right: 1.38rem;
+    border-radius: .31rem;
+}
+.ustensile-tag{
+    background-color: var(--btn3);
+    padding: .63rem;
+    padding-left: 1.25rem;
+    padding-right: 1.38rem;
+    border-radius: .31rem;
+}
+.bi-x-circle {
+    cursor: pointer;
+}
+#enter-ingredient {
+    padding: 0 !important;
+    width: 6rem !important;
+}
+#enter-appareil {
+    padding: 0 !important;
+    width: 6rem !important;
+}
+#enter-ustensile {
+    padding: 0 !important;
+    width: 6rem !important;
+}
+.btns-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+@media screen and (min-width: 768px){
+    body {
+        padding-left: 5.5rem;
+        padding-right: 5.5rem;
+    }
+    header {
+        max-height: 19.3rem;
+        position: relative;
+        z-index: 1;
+    }
+    .main-grid {
+        padding-right: .7rem;
+    }
+    .card {
+        height: 364px;
+    }
+}
