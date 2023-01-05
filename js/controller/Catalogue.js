@@ -5,12 +5,16 @@ class Catalogue {
 	  this.$appliances = document.getElementById("appliances-wrap");
 	  this.$ustensils = document.getElementById("ustensils-wrap");
 	  this.$tagsFilterBtn = document.querySelectorAll(".search-btn");
-	  this.$ingredientSearchInput = document.getElementById("ingredient-filter-btn");
-	  this.$applianceSearchInput = document.getElementById("appliance-filter-btn");
+	  this.$ingredientSearchInput = document.getElementById(
+	    "ingredient-filter-btn"
+	  );
+	  this.$applianceSearchInput = document.getElementById(
+	    "appliance-filter-btn"
+	  );
 	  this.$ustensilSearchInput = document.getElementById("ustensil-filter-btn");
 	  this.catalogue = data;
 	  this.catalogueFiltred = data;
-	  this.catalogueTaged = new Array(); //création d'un objet array
+	  this.catalogueTaged = new Array();
 	  this.ingredients = new Array();
 	  this.appliances = new Array();
 	  this.ustensils = new Array();
@@ -20,20 +24,21 @@ class Catalogue {
 	  this.init();
 	}
       
-	// INIT
+	/* Init */
+      
 	init = () => {
 	  this.searchBar();
 	  this.tagsFilterBtn();
 	  this.tag();
 	};
       
-	// INIT SEARCHBAR
+	/* Init searchBar */
 	searchBar = () => {
 	  const $searchBar = document.getElementById("search-bar");
 	  $searchBar.addEventListener("keyup", (e) => {
 	    const query = e.target.value;
 	    if (e.target.value.length > 2) {
-	      this.filter(query.toLowerCase()); //crée et retourne un nouveau tableau contenant tous les éléments du tableau d'origine qui remplissent une condition déterminée par la fonction callback.
+	      this.filter(query.toLowerCase());
 	      this.tag();
 	    } else {
 	      this.catalogueFiltred = this.catalogue;
@@ -42,19 +47,27 @@ class Catalogue {
 	  });
 	};
       
-	// INIT tagsFilterBtn 
+	/* Init tagsFilterBtn */
+      
 	toggleFilterBtn = (btn) => {
 	  if (btn.className === "fa-solid fa-chevron-down") {
 	    btn.classList.replace("fa-chevron-down", "fa-chevron-up");
-	    btn.parentNode.parentNode.nextElementSibling.classList.replace("list-hidden","list-show");
+	    btn.parentNode.parentNode.nextElementSibling.classList.replace(
+	      "list-hidden",
+	      "list-show"
+	    );
 	  } else {
 	    btn.classList.replace("fa-chevron-up", "fa-chevron-down");
-	    btn.parentNode.parentNode.nextElementSibling.classList.replace("list-show","list-hidden");
+	    btn.parentNode.parentNode.nextElementSibling.classList.replace(
+	      "list-show",
+	      "list-hidden"
+	    );
 	  }
 	};
       
-	 // ARROW BTN 
 	tagsFilterBtn = () => {
+	  /* Arrow Btn */
+      
 	  this.$tagsFilterBtn.forEach((tagsFilterBtn) => {
 	    const arrowBtn = tagsFilterBtn.lastElementChild.firstChild;
 	    const input = tagsFilterBtn.firstElementChild;
@@ -67,10 +80,11 @@ class Catalogue {
 	      const arrowBtn = e.target.nextElementSibling.firstElementChild;
 	      this.toggleFilterBtn(arrowBtn);
 	    });
-	});
+	  });
       
-	// FILTER INGREDIENT LIST WITH InputBtn 
-	this.$ingredientSearchInput.addEventListener("keyup", (e) => {
+	  /* Filter Ingredients List with InputBtn */
+      
+	  this.$ingredientSearchInput.addEventListener("keyup", (e) => {
 	    if (e.target.value.length > 0) {
 	      const ingredientsListFiltred = this.ingredients.filter((items) =>
 		items.toLowerCase().includes(e.target.value.toLowerCase())
@@ -86,10 +100,11 @@ class Catalogue {
 		new FilterBtn(this.ingredients, "ingredient").render()
 	      );
 	    }
-	});
+	  });
       
-	// FILTER APPLIANCES LIST WITH InputBtn 
-	this.$applianceSearchInput.addEventListener("keyup", (e) => {
+	  /* Filter Appliances List with InputBtn */
+      
+	  this.$applianceSearchInput.addEventListener("keyup", (e) => {
 	    if (e.target.value.length > 0) {
 	      const appliancesListFiltred = this.appliances.filter((items) =>
 		items.toLowerCase().includes(e.target.value.toLowerCase())
@@ -107,8 +122,9 @@ class Catalogue {
 	    }
 	  });
       
-	// FILTER USTENSILS LIST WITH InputBtn 
-	this.$ustensilSearchInput.addEventListener("keyup", (e) => {
+	  /* Filter Appliances List with InputBtn */
+      
+	  this.$ustensilSearchInput.addEventListener("keyup", (e) => {
 	    if (e.target.value.length > 0) {
 	      const ustensilsListFiltred = this.ustensils.filter((items) =>
 		items.toLowerCase().includes(e.target.value.toLowerCase())
@@ -127,24 +143,29 @@ class Catalogue {
 	  });
 	};
       
-	// FILTER WITH searchBar
+	/* Filter with searchBar */
 	filter = (query) => {
-	  this.catalogueFiltred = this.catalogue.filter((recipe) => {
-	    return (
-	      recipe.name.toLowerCase().includes(query) ||
+	  this.catalogueFiltred = []
+	  for(let recipe of this.catalogue) {
+	    const recipeIngredientsList = new Array()
+	    for (let ingredient of recipe.ingredients) {
+	      recipeIngredientsList.push(...ingredient.ingredient.toLowerCase().split(' '))
+	    }
+      
+	    if(
+	      recipe.name.toLowerCase().includes(query) || 
 	      recipe.description.toLowerCase().includes(query) ||
-	      recipe.ingredients.some((ingredient) =>
-		ingredient.ingredient.toLowerCase().includes(query)
-	      )
-	    );
-	  });
+	      recipeIngredientsList.includes(query)) {
+	      this.catalogueFiltred.push(recipe)
+	    }
+	  }
 	};
       
-	// FILTER WITH tags 
+	/* Filter with tags */
 	tag = () => {
 	  this.catalogueTaged = this.catalogueFiltred;
       
-	  /* FILTER WITH ingredientsTags */
+	  /* Filter with ingredients Tags */
 	  if (this.ingredientsTags.length > 0) {
 	    this.ingredientsTags.map((tag) => {
 	      this.catalogueTaged = this.catalogueTaged.filter((recipe) => {
@@ -153,18 +174,18 @@ class Catalogue {
 		);
 	      });
 	    });
-	}
+	  }
       
-	// FILTER WITH appliancesTags
-	if (this.appliancesTags.length > 0) {
+	  /* Filter with appliances Tags */
+	  if (this.appliancesTags.length > 0) {
 	    this.appliancesTags.map((tag) => {
 	      this.catalogueTaged = this.catalogueTaged.filter((recipe) => {
 		return recipe.appliance.toLowerCase().includes(tag);
 	      });
 	    });
-	}
+	  }
       
-	// FILTER WITH ustensilsTags 
+	  /* Filter with ustensils Tags */
 	  if (this.ustensilsTags.length > 0) {
 	    this.ustensilsTags.map((tag) => {
 	      this.catalogueTaged = this.catalogueTaged.filter((recipe) => {
@@ -173,7 +194,7 @@ class Catalogue {
 		);
 	      });
 	    });
-	}
+	  }
       
 	  if (this.catalogueTaged.length > 0) {
 	    this.render();
@@ -182,32 +203,31 @@ class Catalogue {
 	    const p = document.createElement("p");
 	    alert.id = "alert";
 	    p.textContent =
-	      "Aucune recette ne correspond à vos critères... Vous pouvez chercher « tarte aux pommes ».";
+	      "« Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes »";
 	    alert.appendChild(p);
 	    this.$recipes.innerHTML = "";
 	    this.$recipes.appendChild(alert);
 	  }
 	};
       
-	// RENDER
+	/* Render */
 	render = () => {
-	  /* UPDATES Ingredients */
+	  /* Update Ingredients */
 	  this.ingredients = Array.from(
-	    new Set( //Un objet Set permet de stocker un ensemble de valeurs uniques de n'importe quel type
+	    new Set(
 	      this.catalogueTaged
-		.map((recipe) => //méthode map() crée un nouveau tableau avec les résultats de l'appel d'une fonction fournie sur chaque élément du tableau appelant.
+		.map((recipe) =>
 		  recipe.ingredients.map((recipe) => recipe.ingredient)
 		)
-		.reduce((prev, curr) => prev.concat(curr)) //reduce() applique une fonction qui est un « accumulateur » et qui traite chaque valeur d'une liste (de la gauche vers la droite) afin de la réduire à une seule valeur.
-							   //concat() est utilisée afin de fusionner deux ou plusieurs tableaux en les concaténant. 
-		.sort() //sort() trie les éléments d'un tableau, dans ce même tableau, et renvoie le tableau.
+		.reduce((prev, curr) => prev.concat(curr))
+		.sort()
 	    )
 	  );
 	  /* Remove items taged from List */
 	  if (this.ingredientsTags.length > 0) {
-	    this.ingredientsTags.forEach((tag) => { //forEach() permet d'exécuter une fonction donnée sur chaque élément du tableau.
-	      this.ingredients.splice(this.ingredients.indexOf(tag.capitalize()), 1); //splice() modifie le contenu d'un tableau en retirant des éléments et/ou en ajoutant de nouveaux éléments à même le tableau.
-										      //indexOf() renvoie le premier indice pour lequel on trouve un élément donné dans un tableau.
+	    console.log(this.ingredientsTags);
+	    this.ingredientsTags.forEach((tag) => {
+	      this.ingredients.splice(this.ingredients.indexOf(tag.capitalize()), 1);
 	    });
 	  }
       
