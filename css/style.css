@@ -448,6 +448,9 @@ section{
 }
 
 @media screen and (max-width: 900px) {
+  section {
+    top: 30px;
+  }
   #tag_filter_btns_container {
     position: relative;
   }
