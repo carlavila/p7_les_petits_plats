@@ -145,20 +145,15 @@ class Catalogue {
       
 	/* Filter with searchBar */
 	filter = (query) => {
-	  this.catalogueFiltred = []
-	  for(let recipe of this.catalogue) {
-	    const recipeIngredientsList = new Array()
-	    for (let ingredient of recipe.ingredients) {
-	      recipeIngredientsList.push(...ingredient.ingredient.toLowerCase().split(' '))
-	    }
-      
-	    if(
-	      recipe.name.toLowerCase().includes(query) || 
+	  this.catalogueFiltred = this.catalogue.filter((recipe) => {
+	    return (
+	      recipe.name.toLowerCase().includes(query) ||
 	      recipe.description.toLowerCase().includes(query) ||
-	      recipeIngredientsList.includes(query)) {
-	      this.catalogueFiltred.push(recipe)
-	    }
-	  }
+	      recipe.ingredients.some((ingredient) =>
+		ingredient.ingredient.toLowerCase().includes(query)
+	      )
+	    );
+	  });
 	};
       
 	/* Filter with tags */
@@ -203,7 +198,7 @@ class Catalogue {
 	    const p = document.createElement("p");
 	    alert.id = "alert";
 	    p.textContent =
-	      "« Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes »";
+	      "Aucune recette ne correspond à vos critères... Vous pouvez chercher « tarte aux pommes ».";
 	    alert.appendChild(p);
 	    this.$recipes.innerHTML = "";
 	    this.$recipes.appendChild(alert);
@@ -225,7 +220,6 @@ class Catalogue {
 	  );
 	  /* Remove items taged from List */
 	  if (this.ingredientsTags.length > 0) {
-	    console.log(this.ingredientsTags);
 	    this.ingredientsTags.forEach((tag) => {
 	      this.ingredients.splice(this.ingredients.indexOf(tag.capitalize()), 1);
 	    });
