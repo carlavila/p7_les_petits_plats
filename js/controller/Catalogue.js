@@ -145,16 +145,24 @@ class Catalogue {
       
 	/* Filter with searchBar */
 	filter = (query) => {
-	  this.catalogueFiltred = this.catalogue.filter((recipe) => {
-	    return (
-	      recipe.name.toLowerCase().includes(query) ||
-	      recipe.description.toLowerCase().includes(query) ||
-	      recipe.ingredients.some((ingredient) =>
-		ingredient.ingredient.toLowerCase().includes(query)
-	      )
-	    );
-	  });
-	};
+		this.catalogueFiltred = []
+		for(let recipe of this.catalogue) {
+		  const recipeIngredientsList = new Array()
+		  for (let ingredient of recipe.ingredients) {
+		    recipeIngredientsList.push(...ingredient.ingredient.toLowerCase().split(' '))
+		  }
+	    
+		  if(
+		    recipe.name.toLowerCase().includes(query) || 
+		    recipe.description.toLowerCase().includes(query) ||
+		    recipeIngredientsList.includes(query)) {
+		    this.catalogueFiltred.push(recipe)
+		  }
+		}
+	      };
+	      
+	
+
       
 	/* Filter with tags */
 	tag = () => {
