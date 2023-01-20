@@ -25,7 +25,6 @@ class Catalogue {
 	}
       
 	/* Init */
-      
 	init = () => {
 	  this.searchBar();
 	  this.tagsFilterBtn();
@@ -48,7 +47,6 @@ class Catalogue {
 	};
       
 	/* Init tagsFilterBtn */
-      
 	toggleFilterBtn = (btn) => {
 	  if (btn.className === "fa-solid fa-chevron-down") {
 	    btn.classList.replace("fa-chevron-down", "fa-chevron-up");
@@ -67,7 +65,6 @@ class Catalogue {
       
 	tagsFilterBtn = () => {
 	  /* Arrow Btn */
-      
 	  this.$tagsFilterBtn.forEach((tagsFilterBtn) => {
 	    const arrowBtn = tagsFilterBtn.lastElementChild.firstChild;
 	    const input = tagsFilterBtn.firstElementChild;
@@ -83,7 +80,6 @@ class Catalogue {
 	  });
       
 	  /* Filter Ingredients List with InputBtn */
-      
 	  this.$ingredientSearchInput.addEventListener("keyup", (e) => {
 	    if (e.target.value.length > 0) {
 	      const ingredientsListFiltred = this.ingredients.filter((items) =>
@@ -103,7 +99,6 @@ class Catalogue {
 	  });
       
 	  /* Filter Appliances List with InputBtn */
-      
 	  this.$applianceSearchInput.addEventListener("keyup", (e) => {
 	    if (e.target.value.length > 0) {
 	      const appliancesListFiltred = this.appliances.filter((items) =>
@@ -123,7 +118,6 @@ class Catalogue {
 	  });
       
 	  /* Filter Appliances List with InputBtn */
-      
 	  this.$ustensilSearchInput.addEventListener("keyup", (e) => {
 	    if (e.target.value.length > 0) {
 	      const ustensilsListFiltred = this.ustensils.filter((items) =>
@@ -145,24 +139,21 @@ class Catalogue {
       
 	/* Filter with searchBar */
 	filter = (query) => {
-		this.catalogueFiltred = []
-		for(let recipe of this.catalogue) {
-		  const recipeIngredientsList = new Array()
-		  for (let ingredient of recipe.ingredients) {
-		    recipeIngredientsList.push(...ingredient.ingredient.toLowerCase().split(' '))
+		this.catalogueFiltred = [] //Initialise un tableau vide
+		for(let recipe of this.catalogue) { //Boucle à travers chaque élément de "catalogue" dans l'objet de la classe Catalogue.
+		  const recipeIngredientsList = new Array() //Initialise un tableau vide appelé "recipeIngredientsList" pour chaque élément de la recette.
+		  for (let ingredient of recipe.ingredients) { //Boucle à travers chaque ingrédient dans la liste des ingrédients de la recette courante.
+		    recipeIngredientsList.push(...ingredient.ingredient.toLowerCase().split(' ')) //Ajoute chaque mot de l'ingrédient courant à la liste des ingrédients de la recette courante en convertissant le nom de l'ingrédient en minuscule et en le séparant en mots.
 		  }
 	    
 		  if(
-		    recipe.name.toLowerCase().includes(query) || 
+		    recipe.name.toLowerCase().includes(query) || //vérifie si le nom ou la description de la recette courante contient le terme de recherche ou si le terme de recherche apparaît dans la liste des ingrédients de la recette courante.
 		    recipe.description.toLowerCase().includes(query) ||
 		    recipeIngredientsList.includes(query)) {
-		    this.catalogueFiltred.push(recipe)
+		    this.catalogueFiltred.push(recipe) //si la condition est vraie, ajoute la recette courante au tableau "catalogueFiltred" de l'objet de la classe Catalogue.
 		  }
 		}
 	      };
-	      
-	
-
       
 	/* Filter with tags */
 	tag = () => {
